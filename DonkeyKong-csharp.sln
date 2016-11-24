@@ -1,6 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
-
 Project("{F11F1B7B-742F-2BB4-3349-EAAA71EEABE1}") = "DonkeyKong", "Assembly-CSharp-vs.csproj", "{6B993608-FCB3-3496-6126-8870805DD401}"
 EndProject
 Global
@@ -13,9 +12,6 @@ Global
 		{6B993608-FCB3-3496-6126-8870805DD401}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B993608-FCB3-3496-6126-8870805DD401}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B993608-FCB3-3496-6126-8870805DD401}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 																																																								GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
@@ -36,5 +32,4 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 	EndGlobalSection
-
 EndGlobal

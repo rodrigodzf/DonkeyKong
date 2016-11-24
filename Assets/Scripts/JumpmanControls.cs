@@ -19,23 +19,25 @@ public class JumpmanControls : MonoBehaviour {
 
     private List<AudioSource> sources = new List<AudioSource>();    // List of all audio clips
     private bool standing;                                          // Mario's speed is 0
-    private float jumpForce = 5f;                                   // Mario's jump height
+    private float jumpForce = 30f;                                   // Mario's jump height
     private float speed = 10f;                                      // Mario's walking speed
     private float climbSpeed = 5f;                                  // Mario's climbing speed
     private Vector2 maxVelocity = new Vector2(3, 5);                // Max walking and climbing speed
     private Controller controller;                                  // Input detector script
-    private Animator animator;                                      // Mario's animator
+    public Animator animator;                                      // Mario's animator
     private int maxAudioSourceCount = 10;                           // Max number of AudioSources allowed
-
+    private bool dead = false;
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         controller = GetComponent<Controller>();
-        animator = GetComponent<Animator>();
+//        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
+        if (dead) return;
+
         CheckGround();
 
         var forceX = 0f;
@@ -60,7 +62,10 @@ public class JumpmanControls : MonoBehaviour {
             {
                 forceX = standing ? speed * controller.moving.x : (speed * controller.moving.x);
                 transform.localScale = new Vector3(forceX > 0 ? -3 : 3, 3, 0);
+                OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.movingCmd, forceX );
+
             }
+
         }
         // Standing
         else if (controller.moving.x == 0)
@@ -73,6 +78,7 @@ public class JumpmanControls : MonoBehaviour {
             {
                 this.animator.SetInteger("AnimState", 5);
             }
+            OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.movingCmd, 0 );
         }
         // Moving Up or Down, Only if Mario is on a ladder trigger
         if (controller.moving.y > 0 && isOnLadder == true)
@@ -81,8 +87,9 @@ public class JumpmanControls : MonoBehaviour {
             {
                 forceY = controller.moving.y * climbSpeed;
                 this.animator.SetInteger("AnimState", 4);
+            } else {
+                this.animator.SetInteger("AnimState", 3);
             }
-            this.animator.SetInteger("AnimState", 3);
         }
         else if (absVelY > 0 && isOnGround == true)
         {
@@ -91,19 +98,23 @@ public class JumpmanControls : MonoBehaviour {
         // Jumping only if Mario is on the ground
         if (isOnGround == true && Input.GetKeyDown(KeyCode.Space))
         {
-            rb2d.AddForce(Vector2.up * jumpForce);
+            Debug.Log("Space");
+            rb2d.AddForce(Vector2.up * jumpForce);   
             this.animator.SetInteger("AnimState", 2);
-            PlaySound(this.jumpClip);
+            OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.jumpCmd, 1 );
+            if (!hammerTime){
+                PlaySound(this.jumpClip);
+            }                
         }
         // Play sound clip once
         if (isOnGround == true && (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)))
         {
-            PlaySound(this.walkingClip);
-            if (hammerTime == false)
+            if (!hammerTime)
             {
+                PlaySound(this.walkingClip);
                 this.animator.SetInteger("AnimState", 1);
             }
-            else if (hammerTime == true)
+            else if (hammerTime)
             {
                 this.animator.SetInteger("AnimState", 6);
             }
@@ -130,6 +141,15 @@ public class JumpmanControls : MonoBehaviour {
     // Colliders
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (dead) return;
+
+ 
+
+
+
+
+
+
         if (other.gameObject.tag == "Hammer")
         {
             Destroy(other.gameObject);
@@ -143,7 +163,9 @@ public class JumpmanControls : MonoBehaviour {
         }
         else if (hammerTime == false && other.gameObject.tag == "Enemy")
         {
+            dead = true;
             this.animator.SetTrigger("DeathTrigger");
+            OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.enemyCollisionCmd, 1 );
             PlaySound(this.deathClip);
         }
         if (other.gameObject.tag == "WinLadder" && Input.GetKey(KeyCode.UpArrow))
@@ -154,6 +176,27 @@ public class JumpmanControls : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D other)
     {
+        switch (other.gameObject.tag)
+        {
+            case "EG":
+                OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.floorCmd, 0 );
+                break;
+            case "Floor1":
+                OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.floorCmd, 1 );
+                break;
+            case "Floor2":
+                OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.floorCmd, 2 );
+                break;
+            case "Floor3":
+                OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.floorCmd, 3 );
+                break;
+            case "Floor4":
+                OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.floorCmd, 4 );
+                break;
+            default:
+            break;
+        }
+
         if (other.gameObject.tag == "Ladder")
         {
             isOnLadder = true;
@@ -178,23 +221,7 @@ public class JumpmanControls : MonoBehaviour {
         }
     }
 
-    // Event Key Triggers
-    void WinTransition()
-    {
-        Application.LoadLevel("Win");
-    }
 
-    void LoseTransition()
-    {
-        if (PlayerData.Instance.Lives > 0)
-        {
-            Application.LoadLevel(Application.loadedLevel);
-        }
-        else if (PlayerData.Instance.Lives == 0)
-        {
-            Application.LoadLevel("Lose");
-        }
-    }
 
     // Audio Source
     private AudioSource GetAudioSource()
@@ -241,6 +268,7 @@ public class JumpmanControls : MonoBehaviour {
     // Hammer Timer
     private IEnumerator hammerTimer()
     {
+        PlaySound(this.hammerClip);
         yield return new WaitForSeconds(5);
         hammerTime = false;
     }

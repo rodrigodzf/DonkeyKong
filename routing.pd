@@ -1,0 +1,25 @@
+#N canvas 688 227 625 490 10;
+#X obj 44 132 oscparse;
+#X obj 44 104 netreceive -u -b 8888;
+#X msg 112 50 listen 8888;
+#X msg 114 74 listen 0;
+#X obj 57 203 list trim;
+#X obj 44 160 list split 1;
+#X text 152 160 trim unity;
+#X text 228 234 here route;
+#X obj 66 235 route floor jump;
+#X obj 243 290 print jump;
+#X text 280 131 public static string jumpCmd = "/unity/jump" \; public
+static string enemyCollisionCmd = "/unity/enemyCollision" \; public
+static string hammerTimeCmd = "/unity/hammerTime" \; public static
+string movingCmd = "/unity/moving" \; public static string floorCmd
+= "/unity/floor" \;;
+#X obj 66 281 print floor;
+#X connect 0 0 5 0;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 1 0;
+#X connect 4 0 8 0;
+#X connect 5 1 4 0;
+#X connect 8 0 11 0;
+#X connect 8 1 9 0;
