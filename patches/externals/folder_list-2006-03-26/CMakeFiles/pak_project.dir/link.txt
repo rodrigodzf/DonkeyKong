@@ -1,0 +1,1 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc   -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -o build/pak.pd_darwin -install_name /Users/rodrigodiaz/Downloads/folder_list-2006-03-26/build/pak.pd_darwin CMakeFiles/pak_project.dir/folder_list.c.o 

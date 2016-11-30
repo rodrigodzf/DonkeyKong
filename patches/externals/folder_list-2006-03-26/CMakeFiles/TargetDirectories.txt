@@ -1,0 +1,3 @@
+/Users/rodrigodiaz/Downloads/folder_list-2006-03-26/CMakeFiles/rebuild_cache.dir
+/Users/rodrigodiaz/Downloads/folder_list-2006-03-26/CMakeFiles/edit_cache.dir
+/Users/rodrigodiaz/Downloads/folder_list-2006-03-26/CMakeFiles/folder_list.dir

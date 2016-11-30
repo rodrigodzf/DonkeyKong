@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/rodrigodiaz/Downloads/folder_list-2006-03-26/folder_list.c
+m_pd.h
+-
+windows.h
+-
+stdio.h
+-
+stdlib.h
+-
+glob.h
+-
+
+pure-data/src/m_pd.h
+stddef.h
+-
+stdint.h
+-
+stdio.h
+-
+
