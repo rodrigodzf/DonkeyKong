@@ -66,7 +66,7 @@ public class JumpmanControls : MonoBehaviour {
 			{
 				forceX = standing ? speed * controller.moving.x : (speed * controller.moving.x);
 				transform.localScale = new Vector3(forceX > 0 ? -3 : 3, 3, 0);
-				OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.movingCmd, forceX );
+				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.movingCmd, forceX );
 
 			}
 
@@ -82,7 +82,7 @@ public class JumpmanControls : MonoBehaviour {
 			{
 				this.animator.SetInteger("AnimState", 5);
 			}
-			OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.movingCmd, 0 );
+			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.movingCmd, 0 );
 		}
 		// Moving Up or Down, Only if Mario is on a ladder trigger
 		if (controller.moving.y > 0 && isOnLadder == true)
@@ -105,7 +105,7 @@ public class JumpmanControls : MonoBehaviour {
 			Debug.Log("Space");
 			rb2d.AddForce(Vector2.up * jumpForce);   
 			this.animator.SetInteger("AnimState", 2);
-			OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.jumpCmd, 1 );
+			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.jumpCmd, 1 );
 			if (!hammerTime){
 				PlaySound(this.jumpClip);
 			}				
@@ -133,7 +133,7 @@ public class JumpmanControls : MonoBehaviour {
 		xy.Add((rb2d.transform.position.x + width/2)/width);
 		xy.Add((rb2d.transform.position.y + height/2)/height);
 
-		OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.positionCmd, xy);
+		OSCSender.SendMessage(OSCSender.PDClient, OSCSender.positionCmd, xy);
 
 	   
 	}
@@ -158,13 +158,6 @@ public class JumpmanControls : MonoBehaviour {
 	{
 		if (dead) return;
 
- 
-
-
-
-
-
-
 		if (other.gameObject.tag == "Hammer")
 		{
 			Destroy(other.gameObject);
@@ -180,7 +173,7 @@ public class JumpmanControls : MonoBehaviour {
 		{
 			dead = true;
 			this.animator.SetTrigger("DeathTrigger");
-			OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.enemyCollisionCmd, 1 );
+			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.enemyCollisionCmd, 1 );
 			PlaySound(this.deathClip);
 		}
 		if (other.gameObject.tag == "WinLadder" && Input.GetKey(KeyCode.UpArrow))
@@ -194,19 +187,19 @@ public class JumpmanControls : MonoBehaviour {
 		switch (other.gameObject.tag)
 		{
 			case "EG":
-				OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.floorCmd, 0 );
+				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.floorCmd, 0 );
 				break;
 			case "Floor1":
-				OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.floorCmd, 1 );
+				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.floorCmd, 1 );
 				break;
 			case "Floor2":
-				OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.floorCmd, 2 );
+				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.floorCmd, 2 );
 				break;
 			case "Floor3":
-				OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.floorCmd, 3 );
+				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.floorCmd, 3 );
 				break;
 			case "Floor4":
-				OSCHandler.Instance.SendMessageToClient(OSCSender.PDClient, OSCSender.floorCmd, 4 );
+				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.floorCmd, 4 );
 				break;
 			default:
 			break;

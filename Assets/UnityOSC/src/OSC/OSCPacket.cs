@@ -197,13 +197,13 @@ namespace UnityOSC
 			}
 			else if (type.Name == "Byte[]")
 			{
-                int length = UnpackValue<int>(data, ref start);
-                byte[] buffer = new byte[length];
-                Array.Copy(data, start, buffer, 0, buffer.Length);
-                start += buffer.Length;
-                start = ((start + 3) / 4) * 4;
+				int length = UnpackValue<int>(data, ref start);
+				byte[] buffer = new byte[length];
+				Array.Copy(data, start, buffer, 0, buffer.Length);
+				start += buffer.Length;
+				start = ((start + 3) / 4) * 4;
 
-                msgvalue = buffer;
+				msgvalue = buffer;
 			}
 			else
 			{
@@ -289,12 +289,12 @@ namespace UnityOSC
 		/// </returns>
 		public static OSCPacket Unpack(byte[] data, ref int start, int end)
 		{
-            if (data[start] == '#')
-            {
-                return OSCBundle.Unpack(data, ref start, end);
-            }
+			if (data[start] == '#')
+			{
+				return OSCBundle.Unpack(data, ref start, end);
+			}
 
-            else return OSCMessage.Unpack(data, ref start);
+			else return OSCMessage.Unpack(data, ref start);
 		}		
 		
 		/// <summary>
@@ -309,6 +309,14 @@ namespace UnityOSC
 			int pad = 4 - (data.Count % 4);
 			for(int i = 0; i < pad; i++)
 				data.Add(nullvalue);
+		}
+
+
+		public void clear()
+		{
+			this._data.Clear();
+			this._address = String.Empty;
+			this._timeStamp = 0;
 		}
 		
 		#endregion

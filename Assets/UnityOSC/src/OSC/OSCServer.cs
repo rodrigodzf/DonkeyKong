@@ -26,21 +26,21 @@ using System.Collections.Generic;
 
 namespace UnityOSC
 {
-    public delegate void PacketReceivedEventHandler(OSCServer sender, OSCPacket packet);
+	public delegate void PacketReceivedEventHandler(OSCServer sender, OSCPacket packet);
 
 	/// <summary>
 	/// Receives incoming OSC messages
 	/// </summary>
 	public class OSCServer
-    {
-        #region Delegates
-        public event PacketReceivedEventHandler PacketReceivedEvent;
-        #endregion
+	{
+		#region Delegates
+		public event PacketReceivedEventHandler PacketReceivedEvent;
+		#endregion
 
-        #region Constructors
-        public OSCServer (int localPort)
+		#region Constructors
+		public OSCServer (int localPort)
 		{
-            PacketReceivedEvent += delegate(OSCServer s, OSCPacket p) { };
+			PacketReceivedEvent += delegate(OSCServer s, OSCPacket p) { };
 
 			_localPort = localPort;
 			Connect();
@@ -140,7 +140,7 @@ namespace UnityOSC
 
 		/// <summary>
 		/// Receives and unpacks an OSC packet.
-        /// A <see cref="OSCPacket"/>
+		/// A <see cref="OSCPacket"/>
 		/// </summary>
 		private void Receive()
 		{
@@ -152,11 +152,11 @@ namespace UnityOSC
 
 				if(bytes != null && bytes.Length > 0)
 				{
-                    OSCPacket packet = OSCPacket.Unpack(bytes);
+					OSCPacket packet = OSCPacket.Unpack(bytes);
 
-                    _lastReceivedPacket = packet;
+					_lastReceivedPacket = packet;
 
-                    PacketReceivedEvent(this, _lastReceivedPacket);	
+					PacketReceivedEvent(this, _lastReceivedPacket);	
 				}
 			}
 			catch{
