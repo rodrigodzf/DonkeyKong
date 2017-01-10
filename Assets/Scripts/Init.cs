@@ -11,6 +11,7 @@ public class Init : MonoBehaviour {
 	[SerializeField] private int serverPort;
 	[SerializeField] private bool sendOSC;
 	[SerializeField] private bool receiveOSC;
+	[SerializeField] private bool muteMario;
 
 	private OSCReceiver mReceiver;
 	private int idx;
@@ -57,6 +58,10 @@ public class Init : MonoBehaviour {
 			}
 		}
 
+		if (muteMario)
+		{
+			
+		}
 		servers = new Dictionary<string, ServerLog>();
 		clients = new Dictionary<string,ClientLog> ();
 

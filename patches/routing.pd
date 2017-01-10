@@ -1,4 +1,4 @@
-#N canvas 528 214 625 490 10;
+#N canvas 887 219 625 490 10;
 #X obj 44 132 oscparse;
 #X obj 44 104 netreceive -u -b 8888;
 #X msg 112 50 listen 8888;
@@ -7,13 +7,11 @@
 #X obj 44 160 list split 1;
 #X text 152 160 trim unity;
 #X text 228 234 here route;
-#X obj 147 282 print jump;
 #X text 280 131 public static string jumpCmd = "/unity/jump" \; public
 static string enemyCollisionCmd = "/unity/enemyCollision" \; public
 static string hammerTimeCmd = "/unity/hammerTime" \; public static
 string movingCmd = "/unity/moving" \; public static string floorCmd
 = "/unity/floor" \;;
-#X obj 66 281 print floor;
 #X floatatom 42 403 5 0 0 0 - - -, f 5;
 #X msg 42 334 disconnect;
 #X obj -82 350 list prepend send;
@@ -21,21 +19,25 @@ string movingCmd = "/unity/moving" \; public static string floorCmd
 #X msg 124 353 connect 127.0.0.1 6666;
 #X obj 42 377 netsend -u -b;
 #X obj -82 322 oscformat throw;
-#X obj -82 300 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
 #X obj 66 235 route floor jump position;
-#X obj 341 292 print abspos;
+#X obj 322 287 print abspos;
+#X obj 107 288 s absposition;
+#X obj -45 276 s dk_floor;
+#X obj 26 275 s dk_jump;
+#X obj -45 231 change;
 #X connect 0 0 5 0;
 #X connect 1 0 0 0;
 #X connect 2 0 1 0;
 #X connect 3 0 1 0;
-#X connect 4 0 19 0;
+#X connect 4 0 16 0;
 #X connect 5 1 4 0;
-#X connect 12 0 16 0;
+#X connect 10 0 14 0;
+#X connect 11 0 12 0;
+#X connect 12 0 14 0;
 #X connect 13 0 14 0;
-#X connect 14 0 16 0;
-#X connect 15 0 16 0;
-#X connect 16 0 11 0;
-#X connect 17 0 13 0;
-#X connect 18 0 17 0;
-#X connect 19 2 20 0;
+#X connect 14 0 9 0;
+#X connect 15 0 11 0;
+#X connect 16 0 21 0;
+#X connect 16 1 20 0;
+#X connect 16 2 18 0;
+#X connect 21 0 19 0;

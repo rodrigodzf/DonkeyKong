@@ -1,8 +1,8 @@
-#N canvas 234 50 1002 647 10;
+#N canvas 109 82 1002 647 10;
 #X floatatom 497 93 5 0 0 0 - transpo-set -, f 5;
 #X floatatom 170 161 3 0 0 0 - speed-set -, f 3;
 #X floatatom 58 163 7 0 0 0 - location-set -, f 7;
-#N canvas 1166 272 821 693 fft-analysis 0;
+#N canvas 529 101 821 693 fft-analysis 0;
 #X obj 51 477 *~;
 #X obj 18 477 *~;
 #X obj 18 499 -~;
@@ -26,7 +26,7 @@
 #X obj 18 431 *~;
 #X obj 51 432 *~;
 #X obj 426 644 block~;
-#X obj 19 349 +~ 1e-015;
+#X obj 19 349 +~ 1e-15;
 #X obj 19 598 *~;
 #X obj 52 598 tabreceive~ \$0-hann;
 #X obj 127 643 expr 2/(3*$f1);
@@ -221,7 +221,7 @@ sound.;
 #X obj 89 69 *~;
 #X obj 89 91 +~;
 #X obj 159 94 q8_rsqrt~;
-#X obj 159 71 +~ 1e-020;
+#X obj 159 71 +~ 1e-20;
 #X obj 73 119 *~;
 #X obj 19 118 *~;
 #X obj 29 245 lrshift~ 1;
@@ -233,14 +233,14 @@ sound.;
 #X obj 19 325 +~;
 #X obj 125 331 +~;
 #X text 247 66 divide by the magnitude to make a unit-magnitude complex
-amplitude (phase only). The 1e-020 is to prevent overflows. q8_rsqrt~
+amplitude (phase only). The 1e-20 is to prevent overflows. q8_rsqrt~
 is reciprocal square root.;
 #X text 247 165 Take FT of the window in back. Multiply its conjugate
 by the normalized previous output. The result has the magnitude of
 the input sound and phase (previous output phase) minus (back window
 phase).;
 #X text 249 370 Normalize again \, this time taking care to salt each
-channel with 1e-015 so that we get a unit complex number even if everything
+channel with 1e-15 so that we get a unit complex number even if everything
 was zero heretofore.;
 #X text 288 427 Now take the FT of the forward window and multiply
 it by the unit complex number from above. The magnitude will be that
@@ -406,8 +406,8 @@ and window-msec (analysis window size in seconds and msec).;
 #X restore 443 306 pd hann-window;
 #N canvas 312 145 694 447 insample 0;
 #N canvas 0 50 450 300 (subpatch) 0;
-#X array \$0-sample 4e+006 float 0;
-#X coords 0 1 4e+006 -1 400 150 1;
+#X array \$0-sample 2.99676e+06 float 0;
+#X coords 0 1 2.99676e+06 -1 400 150 1;
 #X restore 281 135 graph;
 #X obj 28 184 unpack s f;
 #X obj 28 294 soundfiler;
@@ -437,6 +437,7 @@ and window-msec (analysis window size in seconds and msec).;
 #X obj 28 133 r \$0-read-sample;
 #X obj 283 355 \$0;
 #X msg 285 383 \; \$1-read-sample debate_cut.wav;
+#X obj 142 405 outlet;
 #X connect 1 0 5 0;
 #X connect 1 1 12 0;
 #X connect 2 0 11 0;
@@ -451,6 +452,7 @@ and window-msec (analysis window size in seconds and msec).;
 #X connect 10 1 9 0;
 #X connect 13 0 14 0;
 #X connect 14 0 15 0;
+#X connect 14 0 29 0;
 #X connect 16 0 13 1;
 #X connect 17 0 21 0;
 #X connect 18 0 17 0;
@@ -462,7 +464,7 @@ and window-msec (analysis window size in seconds and msec).;
 #X connect 26 0 10 0;
 #X connect 27 0 28 0;
 #X restore 444 258 pd insample;
-#X floatatom 555 258 5 0 0 0 - #0-samp-msec -, f 5;
+#X floatatom 570 257 5 0 0 0 - #0-samp-msec -, f 5;
 #X obj 444 217 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
 -1;
 #X text 463 216 <- record;
@@ -515,11 +517,14 @@ and window-msec (analysis window size in seconds and msec).;
 before transposing;
 #X msg 236 301 debate_cut.wav;
 #X obj 304 339 inlet;
+#X obj 444 281 outlet;
+#X obj 199 159 inlet;
 #X connect 0 0 51 0;
 #X connect 1 0 47 0;
 #X connect 2 0 40 0;
 #X connect 2 0 46 0;
 #X connect 3 0 41 0;
+#X connect 8 0 56 0;
 #X connect 10 0 8 0;
 #X connect 12 0 50 0;
 #X connect 13 0 48 0;
@@ -537,3 +542,4 @@ before transposing;
 #X connect 43 0 44 0;
 #X connect 54 0 44 0;
 #X connect 55 0 44 0;
+#X connect 57 0 47 0;

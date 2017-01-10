@@ -58,7 +58,7 @@ public class JumpmanControls : MonoBehaviour {
 		{
 			standing = false;
 		}
-
+		
 		// Moving Left or Right
 		if (controller.moving.x != 0)
 		{
@@ -131,10 +131,11 @@ public class JumpmanControls : MonoBehaviour {
 		// float[] xy = {rb2d.transform.position.x, rb2d.transform.position.y};
 		List<float> xy = new List<float>(); 
 		xy.Add((rb2d.transform.position.x + width/2)/width);
-		xy.Add((rb2d.transform.position.y + height/2)/height);
+		xy.Add(1.0f - ((rb2d.transform.position.y + height/2)/height));
+		xy.Add(rb2d.velocity.x);
+		xy.Add(rb2d.velocity.y);
 
 		OSCSender.SendMessage(OSCSender.PDClient, OSCSender.positionCmd, xy);
-
 	   
 	}
 
