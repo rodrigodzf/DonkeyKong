@@ -1,0 +1,55 @@
+#N canvas 311 283 450 300 10;
+#X declare -path ./midiplayer;
+#X declare -path ./externals/timbreID-examples-0.6.4/08-timbre-space
+;
+#X declare -path ./externals/timbreID-examples-0.6.4/08-timbre-space/abstractions
+;
+#X obj 20 130 routing;
+#X obj 21 111 declare -path ./midiplayer, f 65;
+#X obj 20 168 midiplayer_timbre2;
+#N canvas 3 216 553 530 score 0;
+#X obj 113 14 r dk_floor;
+#X obj 113 39 change;
+#X obj 113 63 sel 0 1 2 3 4 5;
+#X msg 36 132 \; bpm-set 90;
+#X msg 125 130 \; bpm-set 120;
+#X msg 216 133 \; bpm-set 150;
+#X msg 305 132 \; bpm-set 200;
+#X obj 33 202 r dk_jump;
+#X obj 141 197 r absposition;
+#X msg 140 347 \; speed-soundfile-set \$1;
+#X obj 141 219 unpack f f f f, f 31;
+#X floatatom 193 327 5 0 0 0 - - -, f 5;
+#X floatatom 257 324 5 0 0 0 - - -, f 5;
+#X floatatom 270 308 5 0 0 0 - - -, f 5;
+#X obj 202 250 change;
+#X obj 263 251 change;
+#X obj 324 252 change;
+#X obj 131 243 change;
+#X obj 36 291 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 53 282 s randomize_euclid;
+#X obj 140 320 * 20;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 4 0;
+#X connect 2 2 5 0;
+#X connect 2 3 6 0;
+#X connect 7 0 19 0;
+#X connect 7 0 18 0;
+#X connect 8 0 10 0;
+#X connect 10 0 17 0;
+#X connect 10 1 14 0;
+#X connect 10 2 15 0;
+#X connect 10 3 16 0;
+#X connect 15 0 13 0;
+#X connect 15 0 20 0;
+#X connect 20 0 9 0;
+#X connect 20 0 11 0;
+#X restore 179 131 pd score;
+#X obj 21 94 declare -path ./externals/timbreID-examples-0.6.4/08-timbre-space
+, f 65;
+#X obj 22 75 declare -path ./externals/timbreID-examples-0.6.4/08-timbre-space/abstractions
+, f 81;
+#X obj 20 149 timbre-space;

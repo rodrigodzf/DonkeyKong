@@ -1,4 +1,4 @@
-#N canvas 887 219 625 490 10;
+#N canvas 730 327 773 618 10;
 #X obj 44 132 oscparse;
 #X obj 44 104 netreceive -u -b 8888;
 #X msg 112 50 listen 8888;
@@ -19,17 +19,30 @@ string movingCmd = "/unity/moving" \; public static string floorCmd
 #X msg 124 353 connect 127.0.0.1 6666;
 #X obj 42 377 netsend -u -b;
 #X obj -82 322 oscformat throw;
-#X obj 66 235 route floor jump position;
-#X obj 322 287 print abspos;
+#X obj 331 245 print abspos;
 #X obj 107 288 s absposition;
 #X obj -45 276 s dk_floor;
 #X obj 26 275 s dk_jump;
 #X obj -45 231 change;
+#X obj -67 183 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 289 382 list prepend send;
+#X obj 289 410 list trim;
+#X obj 289 326 pack f 100;
+#X floatatom 286 300 5 0 0 0 - - -, f 5;
+#X obj 464 342 counter 60 72;
+#X obj 469 287 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 289 354 oscformat -f ff note;
+#X obj 465 315 metro 1000;
+#X obj 66 235 route floor jump position hit;
+#X obj 226 294 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
 #X connect 0 0 5 0;
 #X connect 1 0 0 0;
 #X connect 2 0 1 0;
 #X connect 3 0 1 0;
-#X connect 4 0 16 0;
+#X connect 4 0 30 0;
 #X connect 5 1 4 0;
 #X connect 10 0 14 0;
 #X connect 11 0 12 0;
@@ -37,7 +50,17 @@ string movingCmd = "/unity/moving" \; public static string floorCmd
 #X connect 13 0 14 0;
 #X connect 14 0 9 0;
 #X connect 15 0 11 0;
-#X connect 16 0 21 0;
-#X connect 16 1 20 0;
-#X connect 16 2 18 0;
-#X connect 21 0 19 0;
+#X connect 20 0 18 0;
+#X connect 21 0 15 0;
+#X connect 22 0 23 0;
+#X connect 23 0 14 0;
+#X connect 24 0 28 0;
+#X connect 25 0 24 0;
+#X connect 26 0 25 0;
+#X connect 27 0 29 0;
+#X connect 28 0 22 0;
+#X connect 29 0 26 0;
+#X connect 30 0 20 0;
+#X connect 30 1 19 0;
+#X connect 30 2 17 0;
+#X connect 30 3 31 0;

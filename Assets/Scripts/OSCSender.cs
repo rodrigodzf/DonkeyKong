@@ -12,6 +12,8 @@ public class OSCSender  {
 	public static string movingCmd = "/unity/moving";
 	public static string floorCmd = "/unity/floor";
 	public static string positionCmd = "/unity/position";
+	public static string hitCmd = "/unity/hit";
+
 	static bool bConnected;
 	OSCHandler instance;
 

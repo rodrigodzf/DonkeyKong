@@ -1,4 +1,4 @@
-#N canvas 9 40 639 450 10;
+#N canvas 15 121 639 450 10;
 #X declare -path ./abstractions;
 #X obj 39 268 hsl 128 15 40 100 0 0 master-volume master-volume-set
 master-volume 8 8 0 12 -262144 -1 -1 10583 1;
@@ -604,6 +604,7 @@ master-volume 8 8 0 12 -262144 -1 -1 10583 1;
 #X connect 17 0 14 3;
 #X connect 18 0 14 0;
 #X connect 20 0 21 0;
+#X connect 23 0 4 0;
 #X connect 24 0 6 0;
 #X connect 24 0 28 0;
 #X connect 26 0 18 0;
@@ -1974,54 +1975,6 @@ f 10;
 -1 -1;
 #X text 323 135 <<<<< More mapping options;
 #X text 34 404 timbreID - William Brent 2012;
-#N canvas 535 85 655 535 routing 1;
-#X obj 44 132 oscparse;
-#X obj 44 104 netreceive -u -b 8888;
-#X msg 112 50 listen 8888;
-#X msg 114 74 listen 0;
-#X obj 57 203 list trim;
-#X obj 44 160 list split 1;
-#X text 152 160 trim unity;
-#X text 228 234 here route;
-#X text 280 131 public static string jumpCmd = "/unity/jump" \; public
-static string enemyCollisionCmd = "/unity/enemyCollision" \; public
-static string hammerTimeCmd = "/unity/hammerTime" \; public static
-string movingCmd = "/unity/moving" \; public static string floorCmd
-= "/unity/floor" \;;
-#X floatatom 42 403 5 0 0 0 - - -, f 5;
-#X msg 42 334 disconnect;
-#X obj -82 350 list prepend send;
-#X obj -82 378 list trim;
-#X msg 124 353 connect 127.0.0.1 6666;
-#X obj 42 377 netsend -u -b;
-#X obj -82 322 oscformat throw;
-#X obj 66 235 route floor jump position;
-#X obj 322 287 print abspos;
-#X obj 100 276 s absposition;
-#X obj -45 276 s dk_floor;
-#X obj 26 275 s dk_jump;
-#X obj -45 231 change;
-#X obj 25 254 change;
-#X obj 103 258 change;
-#X connect 0 0 5 0;
-#X connect 1 0 0 0;
-#X connect 2 0 1 0;
-#X connect 3 0 1 0;
-#X connect 4 0 16 0;
-#X connect 5 1 4 0;
-#X connect 10 0 14 0;
-#X connect 11 0 12 0;
-#X connect 12 0 14 0;
-#X connect 13 0 14 0;
-#X connect 14 0 9 0;
-#X connect 15 0 11 0;
-#X connect 16 0 21 0;
-#X connect 16 1 22 0;
-#X connect 16 2 23 0;
-#X connect 21 0 19 0;
-#X connect 22 0 20 0;
-#X connect 23 0 18 0;
-#X restore 491 267 pd routing;
 #X obj 36 207 tgl 15 0 mouseover-on mouseover-on-set Mouseover 17 7
 0 10 -262144 -1 -1 1 1;
 #X obj 36 225 tgl 15 0 routing-on routing-on-set Routing_(from_OSC)
@@ -2032,9 +1985,9 @@ string movingCmd = "/unity/moving" \; public static string floorCmd
 #X obj 44 -9 inlet;
 #X obj 44 13 t b b;
 #X msg 43 56 \; window-size 2048 \; db-thresh 0 \; sample-directory
-/Users/rodrigodiaz/Development/DonkeyKong/patches/externals/timbreID-examples-0.6.4/sound/poem.wav
+/Users/rodrigodiaz/Development/DonkeyKong/patches/externals/timbreID-examples-0.6.4/sound/cartoons.wav
 \;, f 208;
-#X msg 44 138 \; clear-load-file /Users/rodrigodiaz/Development/DonkeyKong/patches/externals/timbreID-examples-0.6.4/background2_timid
+#X msg 44 138 \; clear-load-file /Users/rodrigodiaz/Development/DonkeyKong/patches/externals/timbreID-examples-0.6.4/strings
 \; mouseover-on-set 1 \; routing-on-set 1 \;, f 148;
 #X connect 0 0 4 0;
 #X connect 0 0 1 0;
@@ -2045,4 +1998,4 @@ string movingCmd = "/unity/moving" \; public static string floorCmd
 #X restore 491 247 pd init_preset1;
 #X obj 491 222 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X connect 35 0 34 0;
+#X connect 34 0 33 0;

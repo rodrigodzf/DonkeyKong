@@ -13,6 +13,8 @@ public class Init : MonoBehaviour {
 	[SerializeField] private bool receiveOSC;
 	[SerializeField] private bool muteMario;
 
+	public static float receivedPitch;
+	public static float receivedDur;
 	private OSCReceiver mReceiver;
 	private int idx;
 	private DKThrow DK;
@@ -20,6 +22,10 @@ public class Init : MonoBehaviour {
 	private Dictionary<string, ClientLog> clients;
 
 	private static Init instance;
+
+	public static List<float> receivedParams;
+
+	private NotePositions notePosition;
 
 	void Awake()
 	{
@@ -36,12 +42,13 @@ public class Init : MonoBehaviour {
 		}
 		
 		Application.runInBackground = true;
-		foreach (var i in GameObject.FindObjectsOfType<BoxCollider2D>()){
+		foreach (var i in GameObject.FindObjectsOfType<BoxCollider2D>())
+		{
 			i.GetComponent<BoxCollider2D>().sharedMaterial = Metal;
 			// i.GetComponent<BoxCollider2D>().isTrigger = true;
-			BoxCollider2D bc = i.gameObject.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
-			bc.isTrigger = true;
-			bc.size = new Vector2(0.18f,0.1f);
+			// BoxCollider2D bc = i.gameObject.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
+			// i.GetComponent<BoxCollider2D>().isTrigger = true;
+			i.size = new Vector2(0.18f,0.1f);
 		}
 
 
@@ -62,6 +69,9 @@ public class Init : MonoBehaviour {
 		{
 			
 		}
+
+		notePosition = FindObjectOfType<NotePositions>();
+		//receivedParams = new List<float>();
 		servers = new Dictionary<string, ServerLog>();
 		clients = new Dictionary<string,ClientLog> ();
 
@@ -104,6 +114,16 @@ public class Init : MonoBehaviour {
 			// TODO: FindObjectOfType is costly with each call
 			// store reference and destroy on level load 
 			FindObjectOfType<DKThrow>().Throw();
+		} 
+		if ( String.Equals( packet.Address, OSCReceiver.notecmd ) ) {
+			receivedPitch = (float)packet.Data[0]; // pitch
+			receivedDur = (float)packet.Data[1]; // duration
+			notePosition.PushNoteVoid((int)receivedPitch);
+			
+			// Debug.Log("notecmd " + (int)receivedPitch);
+
+			// receivedParams = new List<float>(){60.0f, 100.0f}; 
+
 		}
 
 		packet.clear();

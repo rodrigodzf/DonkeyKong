@@ -21,10 +21,10 @@ public class DKThrow : MonoBehaviour {
 	void Start()
 	{
 		barrelList.Add(barrel1);
-		barrelList.Add(barrel2);
-		barrelList.Add(barrel3);
-		barrelList.Add(barrel4);
-		barrelList.Add(barrel5);
+		// barrelList.Add(barrel2);
+		// barrelList.Add(barrel3);
+		// barrelList.Add(barrel4);
+		// barrelList.Add(barrel5);
 		ThrowBlue();
 	}
 
@@ -48,7 +48,10 @@ public class DKThrow : MonoBehaviour {
 		// 	nextMove();
 		// }
 	}
-
+	// static public float GetBarrelPos()
+	// {
+	// 	return barrel1.transform.position;
+	// }
 	public void Pound()
 	{
 		animator.SetTrigger("DKPound");
