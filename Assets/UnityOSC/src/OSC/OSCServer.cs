@@ -144,7 +144,8 @@ namespace UnityOSC
 		/// </summary>
 		private void Receive()
 		{
-			IPEndPoint ip = null;
+			IPEndPoint ip = new IPEndPoint(IPAddress.Any, 8888);
+;
 			
 			try
 			{

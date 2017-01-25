@@ -53,7 +53,11 @@ public class JumpmanControls : MonoBehaviour {
 
 		} else if ( Input.GetKeyUp( KeyCode.H ) ) { // Hammer Time
 			hammerTime = !hammerTime;
-			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.hammerTimeCmd, hammerTime );
+			if (hammerTime) {
+				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.hammerTimeCmd, 1 );
+			} else {
+				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.hammerTimeCmd, 0 );
+			}
 
 		}
 		
