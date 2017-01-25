@@ -31,16 +31,26 @@ public class JumpmanControls : MonoBehaviour {
 
 	private float width = 13.0f;
 	private float height = 10.0f;
+
+	private Vector3 initialPosition;
 	void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
 		controller = GetComponent<Controller>();
-//		animator = GetComponent<Animator>();
+
+		// Save initial postion
+		initialPosition = gameObject.transform.position;
 	}
 
 	void Update()
 	{
 		if (dead) return;
+
+		// Restart
+		if ( Input.GetKeyUp( KeyCode.R ) ) {
+			gameObject.transform.position = initialPosition;
+		}
+
 
 		CheckGround();
 
@@ -172,14 +182,15 @@ public class JumpmanControls : MonoBehaviour {
 		}
 		else if (hammerTime == false && other.gameObject.tag == "Enemy")
 		{
-			dead = true;
-			this.animator.SetTrigger("DeathTrigger");
-			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.enemyCollisionCmd, 1 );
-			PlaySound(this.deathClip);
+			//dead = true;
+			//this.animator.SetTrigger("DeathTrigger");
+			//OSCSender.SendMessage(OSCSender.PDClient, OSCSender.enemyCollisionCmd, 1 );
+			//PlaySound(this.deathClip);
+			gameObject.transform.position = initialPosition;
 		}
 		if (other.gameObject.tag == "WinLadder" && Input.GetKey(KeyCode.UpArrow))
 		{
-			this.animator.SetTrigger("WinTrigger");
+			//this.animator.SetTrigger("WinTrigger");
 		}
 	}
 
