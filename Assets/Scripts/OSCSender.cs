@@ -12,7 +12,7 @@ public class OSCSender  {
 	public static string movingCmd = "/dk/moving";
 	public static string floorCmd = "/dk/floor";
 	public static string positionCmd = "/dk/position";
-	public static string hitCmd = "/dk/hit";
+	public static string hitCmd = "/dk/hit"; // f f
 
 	static bool bConnected;
 	OSCHandler instance;

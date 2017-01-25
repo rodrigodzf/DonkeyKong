@@ -27,6 +27,7 @@ public class EnemyKeyEvents : MonoBehaviour {
 	}
 	void SpawnFire()
 	{
+		Debug.Log("SpawnFire");
 		int fireIndex = UnityEngine.Random.Range(0, fireList.Count);
 		Instantiate(fireList[fireIndex]);
 	}
