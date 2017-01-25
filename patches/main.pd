@@ -1,11 +1,9 @@
-#N canvas 311 283 450 300 10;
-#X declare -path ./midiplayer;
+#N canvas 303 286 450 300 10;
 #X declare -path ./externals/timbreID-examples-0.6.4/08-timbre-space
 ;
 #X declare -path ./externals/timbreID-examples-0.6.4/08-timbre-space/abstractions
 ;
-#X obj 20 130 routing;
-#X obj 21 111 declare -path ./midiplayer, f 65;
+#X declare -path ./donald;
 #X obj 20 168 midiplayer_timbre2;
 #N canvas 3 216 553 530 score 0;
 #X obj 113 14 r dk_floor;
@@ -53,3 +51,6 @@
 #X obj 22 75 declare -path ./externals/timbreID-examples-0.6.4/08-timbre-space/abstractions
 , f 81;
 #X obj 20 149 timbre-space;
+#X obj 21 111 declare -path ./donald, f 65;
+#X obj 20 130 routing2;
+#X obj 20 187 playNote;

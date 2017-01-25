@@ -50,12 +50,11 @@ public class JumpmanControls : MonoBehaviour {
 		if ( Input.GetKeyUp( KeyCode.R ) ) {
 			gameObject.transform.position = initialPosition;
 			hammerTime = false;
-			this.animator.SetInteger("AnimState", 1);
 
-		} else if ( Input.GetKeyUp( KeyCode.H ) ) {
-			//this.animator.SetInteger("AnimState", 6);
-			hammerTime = true;
-			this.animator.SetInteger("AnimState", 5);
+		} else if ( Input.GetKeyUp( KeyCode.H ) ) { // Hammer Time
+			hammerTime = !hammerTime;
+			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.hammerTimeCmd, hammerTime );
+
 		}
 		
 
@@ -94,7 +93,7 @@ public class JumpmanControls : MonoBehaviour {
 			
 			else if (hammerTime)
 			{
-				// this.animator.SetInteger("AnimState", 5);
+				this.animator.SetInteger("AnimState", 5);
 			}
 			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.movingCmd, 0.0f );
 		}
@@ -134,7 +133,7 @@ public class JumpmanControls : MonoBehaviour {
 			}
 			else if (hammerTime)
 			{
-				// this.animator.SetInteger("AnimState", 6);
+				this.animator.SetInteger("AnimState", 6);
 			}
 		}
 
