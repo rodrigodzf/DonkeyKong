@@ -9,6 +9,8 @@ public class OSCReceiver
 
 	public static string throwcmd = "/throw";
 	public static string notecmd = "/note";
+	public static string beatcmd = "/beat";
+
 	public OSCReceiver(string serverID, int port)
 	{
 		OSCHandler.Instance.CreateServer(serverID, port);

@@ -6,7 +6,12 @@ using System.Linq;
 using UnityEngine.EventSystems;
 using System;
 
-public class NotePositions : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public interface INotePositions
+{
+	void PushNote(int idx, Vector2 note);
+}
+
+public class NotePositions : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, INotePositions
 {
 	public float AngleMultiplier = 1.0f;
 	public float SpeedMultiplier = 1.0f;
@@ -16,7 +21,9 @@ public class NotePositions : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 	bool m_isHoveringObject;
 	private int m_selectedLink = -1;
 	private int m_lastCharIndex = -1;
-		private TMP_MeshInfo[] m_cachedMeshInfoVertexData;
+	private TMP_MeshInfo[] m_cachedMeshInfoVertexData;
+	
+	[SerializeField]private int GATE_NUMBER;
 
 	Matrix4x4 m_matrix;
 
@@ -507,6 +514,11 @@ public class NotePositions : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 		// }
 
 		// WarpText();
+
+
+		// poll the most recent note
+
+
 	}
 
 
@@ -528,12 +540,12 @@ public class NotePositions : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 	void OnEnable()
 	{
 		// Subscribe to event fired when text object has been regenerated.
-		TMPro_EventManager.TEXT_CHANGED_EVENT.Add(ON_TEXT_CHANGED);
+		//TMPro_EventManager.TEXT_CHANGED_EVENT.Add(ON_TEXT_CHANGED);
 	}
 
 	void OnDisable()
 	{
-		TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(ON_TEXT_CHANGED);
+		//TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(ON_TEXT_CHANGED);
 	}
 	void RestoreCachedVertexAttributes(int index)
 	{
@@ -630,7 +642,7 @@ public class NotePositions : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 	}
 	void OnCollisionEnter2D(Collision2D coll) {
 			Debug.Log("collide and send");
-			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.hitCmd, new List<float>{Init.receivedPitch, Init.receivedDur} );
+			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.hitCmd + GATE_NUMBER, new List<float>{Init.receivedPitch, Init.receivedDur} );
 	}
 	
 	// void LateUpdate()
@@ -897,5 +909,21 @@ public class NotePositions : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 	{
 		Debug.Log("OnPointerExit()");
 		m_isHoveringObject = false;
+	}
+
+	public void PushNote(int idx, Vector2 note)
+	{
+		Debug.Log("PushNote() " + idx);
+
+		// bool acc;
+		// float note = ParsePitch2(n, out acc);
+		// if (acc) {
+		// 	mTextMeshPro.text = " q";
+		// 	semitonelist = new float[]{note, note};
+		// } else {
+		// 	mTextMeshPro.text = "#q";
+		// 	semitonelist = new float[]{note, note};
+		// }
+		// WarpText();
 	}
 }

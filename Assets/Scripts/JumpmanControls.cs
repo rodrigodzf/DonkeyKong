@@ -58,11 +58,8 @@ public class JumpmanControls : MonoBehaviour {
 			} else {
 				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.hammerTimeCmd, 0 );
 			}
-
 		}
 		
-
-
 		CheckGround();
 
 		var forceX = 0f;
