@@ -484,8 +484,10 @@ public class NotePositions : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
 	void Update()
 	{
-		// if (Input.GetKey(KeyCode.Q))
+		// if (Input.GetKeyUp(KeyCode.Q))
 		// {
+		// 	PushNoteVoid(70);
+		// }
 		// 	//BuildTextAndArray(count++, Duration.Quarter, mBuilder);
 		// 	// mTextMeshPro.text = mBuilder.ToString();
 		// 	bool acc;
@@ -537,6 +539,7 @@ public class NotePositions : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 		// StartCoroutine(WarpText());
 	}
 
+	
 	void OnEnable()
 	{
 		// Subscribe to event fired when text object has been regenerated.
@@ -642,7 +645,7 @@ public class NotePositions : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 	}
 	void OnCollisionEnter2D(Collision2D coll) {
 			Debug.Log("collide and send");
-			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.hitCmd + GATE_NUMBER, new List<float>{Init.receivedPitch, Init.receivedDur} );
+			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.hitCmd + GATE_NUMBER, new List<float>(){Init.gateNotes[GATE_NUMBER].x, Init.gateNotes[GATE_NUMBER].y} );
 	}
 	
 	// void LateUpdate()
@@ -785,6 +788,8 @@ public class NotePositions : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 		// Cache the vertex data of the text object as the Jitter FX is applied to the original position of the characters.
 		TMP_MeshInfo[] cachedMeshInfo = textInfo.CopyMeshInfoVertexData();
 
+		m_cachedMeshInfoVertexData = mTextMeshPro.textInfo.CopyMeshInfoVertexData();
+
 		// while (true)
 		// {
 		// Get new copy of vertex data if the text has changed.
@@ -914,7 +919,9 @@ public class NotePositions : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 	public void PushNote(int idx, Vector2 note)
 	{
 		Debug.Log("PushNote() " + idx);
-
+		if (GATE_NUMBER == idx){
+			PushNoteVoid((int)note.x);
+		}
 		// bool acc;
 		// float note = ParsePitch2(n, out acc);
 		// if (acc) {

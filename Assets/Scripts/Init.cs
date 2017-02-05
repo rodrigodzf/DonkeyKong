@@ -31,7 +31,7 @@ public class Init : MonoBehaviour {
 	private string GATE_1 = "1";
 	private string GATE_2 = "2";
 
-	Vector2[] gateNotes;
+	static public Vector2[] gateNotes;
 	private NotePositions notePosition;
 
 	void Awake()
