@@ -1,0 +1,77 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA Quadro K6000 (ID=0x103a)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+    Driver:   1.8.0.0
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Development\DonkeyKong\Build\DK_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Development\DonkeyKong\Build\DK_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Development\DonkeyKong\Build\DK_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Development\DonkeyKong\Build\DK_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Development\DonkeyKong\Build\DK_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Development\DonkeyKong\Build\DK_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Development\DonkeyKong\Build\DK_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Development\DonkeyKong\Build\DK_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Development\DonkeyKong\Build\DK_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Development\DonkeyKong\Build\DK_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: C:\Development\DonkeyKong\Build\DK_Data\Managed\DOTween.dll (this message is harmless)
+Loading C:\Development\DonkeyKong\Build\DK_Data\Managed\DOTween.dll into Unity Child Domain
+Platform assembly: C:\Development\DonkeyKong\Build\DK_Data\Managed\DOTween50.dll (this message is harmless)
+Loading C:\Development\DonkeyKong\Build\DK_Data\Managed\DOTween50.dll into Unity Child Domain
+Platform assembly: C:\Development\DonkeyKong\Build\DK_Data\Managed\DOTween43.dll (this message is harmless)
+Loading C:\Development\DonkeyKong\Build\DK_Data\Managed\DOTween43.dll into Unity Child Domain
+Platform assembly: C:\Development\DonkeyKong\Build\DK_Data\Managed\DOTween46.dll (this message is harmless)
+Loading C:\Development\DonkeyKong\Build\DK_Data\Managed\DOTween46.dll into Unity Child Domain
+- Completed reload, in  0.047 seconds
+Platform assembly: C:\Development\DonkeyKong\Build\DK_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Development\DonkeyKong\Build\DK_Data\Managed\System.dll (this message is harmless)
+OnLevelWasLoaded was found on IntroAudio
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+ 
+(Filename:  Line: 382)
+
+OnLevelWasLoaded was found on MenuAudio
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+ 
+(Filename:  Line: 382)
+
+OnLevelWasLoaded was found on HUD
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+ 
+(Filename:  Line: 382)
+
+<RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
+<RI> Input initialized.
+desktop: 1024x768 60Hz; virtual: 1024x768 at 0,0
+<RI> Initialized touch support.
+UnloadTime: 1.707391 ms
+create server
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+SpawnFire
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+SpawnFire
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+SpawnFire
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+SpawnFire
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: cf0 -> priority: 1 
+  Thread -> id: 1c10 -> priority: 1 
