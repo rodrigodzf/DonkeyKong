@@ -1,0 +1,106 @@
+#N canvas 842 201 520 330 10;
+#N canvas 0 92 1278 454 clock 0;
+#X obj 366 207 metro 100;
+#X obj 354 173 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 500 298 f;
+#X obj 529 296 + 1;
+#X obj 406 -69 loadbang;
+#X floatatom 406 9 5 0 0 0 - - -, f 5;
+#X floatatom 407 56 5 0 0 0 - - -, f 5;
+#X obj 406 31 expr $f1/60;
+#X text 461 58 hz;
+#X text 453 6 bpm;
+#X floatatom 408 104 5 0 0 0 - - -, f 5;
+#X obj 407 80 expr 1000/$f1;
+#X text 456 103 T[ms] 4ths;
+#X floatatom 407 160 5 0 0 0 - - -, f 5;
+#X text 453 158 T[ms] 16ths;
+#X obj 406 130 expr $f1*0.25;
+#X obj 309 274 s clock;
+#X obj 501 325 s counter;
+#X msg 406 -29 100;
+#X obj 253 -34 inlet;
+#X obj 294 113 inlet;
+#X obj 609 30 outlet;
+#X obj 516 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X floatatom 675 288 5 0 0 1 tempo - -, f 5;
+#X obj 525 183 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X msg 525 203 connect \$1;
+#X msg 733 140 tempo \$1;
+#X floatatom 733 121 5 0 0 2 tempo - -, f 5;
+#X obj 516 232 abl_link~ 4 0 16 134;
+#X connect 0 0 16 0;
+#X connect 1 0 0 0;
+#X connect 1 0 24 0;
+#X connect 2 0 3 0;
+#X connect 2 0 17 0;
+#X connect 3 0 2 1;
+#X connect 4 0 18 0;
+#X connect 5 0 7 0;
+#X connect 5 0 21 0;
+#X connect 6 0 11 0;
+#X connect 7 0 6 0;
+#X connect 10 0 15 0;
+#X connect 11 0 10 0;
+#X connect 13 0 0 1;
+#X connect 15 0 13 0;
+#X connect 18 0 5 0;
+#X connect 19 0 5 0;
+#X connect 19 0 27 0;
+#X connect 20 0 1 0;
+#X connect 22 0 2 0;
+#X connect 24 0 25 0;
+#X connect 25 0 28 0;
+#X connect 26 0 28 0;
+#X connect 27 0 26 0;
+#X connect 28 0 22 0;
+#X connect 28 3 23 0;
+#X restore 56 107 pd clock;
+#X obj 59 52 hsl 128 15 30 300 0 0 empty bpm empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 132 87 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X floatatom 56 80 5 0 0 0 - - -, f 5;
+#X text 16 79 bpm;
+#X text 157 83 <- start here;
+#X obj 168 107 r counter;
+#X floatatom 275 88 5 0 0 0 - - -, f 5;
+#X floatatom 375 93 5 0 1 0 - - -, f 5;
+#X floatatom 473 119 5 0 0 0 - - -, f 5;
+#X obj 361 273 send eucBang;
+#X text 165 34 Abspielgeschwindigkeit;
+#X text 237 62 gespielte Schläge pro Abschnitt;
+#X text 370 74 Offset;
+#X text 477 94 Schläge pro Abschnitt;
+#X obj 18 135 r recBeat;
+#X obj 167 225 spigot;
+#X obj 239 217 spigot;
+#X obj 140 150 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 319 182 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 93 206 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 57 166 route perc;
+#X obj 240 153 euclid;
+#X obj 383 197 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X connect 1 0 3 0;
+#X connect 2 0 0 1;
+#X connect 3 0 0 0;
+#X connect 6 0 22 0;
+#X connect 7 0 22 1;
+#X connect 8 0 22 2;
+#X connect 9 0 22 3;
+#X connect 15 0 21 0;
+#X connect 16 0 10 0;
+#X connect 17 0 10 0;
+#X connect 18 0 16 1;
+#X connect 19 0 17 1;
+#X connect 21 0 16 0;
+#X connect 21 0 20 0;
+#X connect 22 0 17 0;
+#X connect 23 0 10 0;
