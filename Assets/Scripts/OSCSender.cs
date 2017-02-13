@@ -6,12 +6,14 @@ using UnityOSC;
 public class OSCSender  {
 
 	public static string PDClient = "PD";
-	public static string jumpCmd = "/unity/jump";
-	public static string enemyCollisionCmd = "/unity/enemyCollision";
-	public static string hammerTimeCmd = "/unity/hammerTime";
-	public static string movingCmd = "/unity/moving";
-	public static string floorCmd = "/unity/floor";
-	public static string positionCmd = "/unity/position";
+	public static string jumpCmd = "/dk/jump";
+	public static string enemyCollisionCmd = "/dk/enemyCollision";
+	public static string hammerTimeCmd = "/dk/hammerTime";
+	public static string movingCmd = "/dk/moving";
+	public static string floorCmd = "/dk/floor";
+	public static string positionCmd = "/dk/position";
+	public static string hitCmd = "/dk/hit"; // f f
+
 	static bool bConnected;
 	OSCHandler instance;
 

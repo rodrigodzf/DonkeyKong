@@ -48,7 +48,10 @@ public class DKThrow : MonoBehaviour {
 		// 	nextMove();
 		// }
 	}
-
+	// static public float GetBarrelPos()
+	// {
+	// 	return barrel1.transform.position;
+	// }
 	public void Pound()
 	{
 		animator.SetTrigger("DKPound");

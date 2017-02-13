@@ -31,17 +31,35 @@ public class JumpmanControls : MonoBehaviour {
 
 	private float width = 13.0f;
 	private float height = 10.0f;
+
+	private Vector3 initialPosition;
 	void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
 		controller = GetComponent<Controller>();
-//		animator = GetComponent<Animator>();
+
+		// Save initial postion
+		initialPosition = gameObject.transform.position;
 	}
 
 	void Update()
 	{
 		if (dead) return;
 
+		// Restart
+		if ( Input.GetKeyUp( KeyCode.R ) ) {
+			gameObject.transform.position = initialPosition;
+			hammerTime = false;
+
+		} else if ( Input.GetKeyUp( KeyCode.H ) ) { // Hammer Time
+			hammerTime = !hammerTime;
+			if (hammerTime) {
+				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.hammerTimeCmd, 1 );
+			} else {
+				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.hammerTimeCmd, 0 );
+			}
+		}
+		
 		CheckGround();
 
 		var forceX = 0f;
@@ -60,29 +78,25 @@ public class JumpmanControls : MonoBehaviour {
 		}
 		
 		// Moving Left or Right
-		if (controller.moving.x != 0)
+		if (controller.moving.x != 0) 
 		{
-			if (absVelX < maxVelocity.x)
+			if (absVelX < maxVelocity.x) 
 			{
 				forceX = standing ? speed * controller.moving.x : (speed * controller.moving.x);
 				transform.localScale = new Vector3(forceX > 0 ? -3 : 3, 3, 0);
-				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.movingCmd, forceX );
-
+				OSCSender.SendMessage(OSCSender.PDClient, OSCSender.movingCmd, forceX > 0 ? -1.0f : 1.0f );
 			}
-
 		}
 		// Standing
 		else if (controller.moving.x == 0)
 		{
-			if (hammerTime == false)
-			{
-				this.animator.SetInteger("AnimState", 0);
-			}
-			else if (hammerTime == true)
+			if (!hammerTime) this.animator.SetInteger("AnimState", 0);
+			
+			else if (hammerTime)
 			{
 				this.animator.SetInteger("AnimState", 5);
 			}
-			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.movingCmd, 0 );
+			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.movingCmd, 0.0f );
 		}
 		// Moving Up or Down, Only if Mario is on a ladder trigger
 		if (controller.moving.y > 0 && isOnLadder == true)
@@ -105,7 +119,7 @@ public class JumpmanControls : MonoBehaviour {
 			Debug.Log("Space");
 			rb2d.AddForce(Vector2.up * jumpForce);   
 			this.animator.SetInteger("AnimState", 2);
-			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.jumpCmd, 1 );
+			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.jumpCmd, 1.0f );
 			if (!hammerTime){
 				PlaySound(this.jumpClip);
 			}				
@@ -162,8 +176,7 @@ public class JumpmanControls : MonoBehaviour {
 		if (other.gameObject.tag == "Hammer")
 		{
 			Destroy(other.gameObject);
-			hammerTime = true;
-			StartCoroutine(hammerTimer());
+			//StartCoroutine(hammerTimer());
 		}
 		if (hammerTime == true && other.gameObject.tag == "Enemy")
 		{
@@ -172,14 +185,14 @@ public class JumpmanControls : MonoBehaviour {
 		}
 		else if (hammerTime == false && other.gameObject.tag == "Enemy")
 		{
-			dead = true;
-			this.animator.SetTrigger("DeathTrigger");
-			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.enemyCollisionCmd, 1 );
-			PlaySound(this.deathClip);
+			//dead = true;
+			//this.animator.SetTrigger("DeathTrigger");
+			OSCSender.SendMessage(OSCSender.PDClient, OSCSender.enemyCollisionCmd, 1.0f );
+			gameObject.transform.position = initialPosition;
 		}
 		if (other.gameObject.tag == "WinLadder" && Input.GetKey(KeyCode.UpArrow))
 		{
-			this.animator.SetTrigger("WinTrigger");
+			//this.animator.SetTrigger("WinTrigger");
 		}
 	}
 
@@ -277,8 +290,7 @@ public class JumpmanControls : MonoBehaviour {
 	// Hammer Timer
 	private IEnumerator hammerTimer()
 	{
-		PlaySound(this.hammerClip);
-		yield return new WaitForSeconds(5);
-		hammerTime = false;
+		hammerTime = true;
+		yield return new WaitForSeconds(1.0f);
 	}
 }
