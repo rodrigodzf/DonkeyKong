@@ -83,16 +83,26 @@ public class Init : MonoBehaviour {
 		clients = new Dictionary<string,ClientLog> ();
 
 		gateNotes = new Vector2[3];
-	}
+
+        
+    }
 
 	void Start (){
 		
 		cb = FindObjectsOfType<NotePositions>();
+        gateNotes[0] = new Vector2(70, 200);
+        gateNotes[1] = new Vector2(70, 200);
+        gateNotes[2] = new Vector2(70, 200);
+        int cnt = 0;
 
-		
+        foreach (var item in cb)
+        {
+            item.PushNote(cnt, gateNotes[cnt]);
+            cnt++;
+        }
 
 
-	}
+    }
 	// Receive OSC
 	// TODO: we need to poll this info from the main thread. So
 	// it would be better to have a sync queue from the worker thread instead
@@ -135,12 +145,21 @@ public class Init : MonoBehaviour {
 
 		if ( String.Equals( packet.Address, OSCReceiver.beatcmd ) )
 		{
-			DOTween.ToAlpha(()=> bg.color, x=> bg.color = x, .6f, .05f).SetEase(Ease.Flash).OnComplete(()=>{
+			
+
+
+
+
+
+
+
+DOTween.ToAlpha(()=> bg.color, x=> bg.color = x, .6f, .05f).SetEase(Ease.Flash).OnComplete(()=>{
 				DOTween.ToAlpha(()=> bg.color, x=> bg.color = x, 0, .05f).SetEase(Ease.Flash);
 			});
 		}
-
-		if ( String.Equals( packet.Address, OSCReceiver.notecmd + 0) ) {
+     
+        if ( String.Equals( packet.Address, OSCReceiver.notecmd) ) {
+            Debug.Log(packet.Address + " " + OSCReceiver.notecmd + 0);
 			receivedPitch = (float)packet.Data[0]; // pitch
 			receivedDur = (float)packet.Data[1]; // duration
 			gateNotes[0] = new Vector2(receivedPitch, receivedDur);
@@ -150,7 +169,8 @@ public class Init : MonoBehaviour {
 			}
 			
 		} else if ( String.Equals( packet.Address, OSCReceiver.notecmd + 1) ) {
-			receivedPitch = (float)packet.Data[0]; // pitch
+            Debug.Log(packet.Address + " " + OSCReceiver.notecmd + 1);
+            receivedPitch = (float)packet.Data[0]; // pitch
 			receivedDur = (float)packet.Data[1]; // duration
 			gateNotes[1] = new Vector2(receivedPitch, receivedDur);
 			foreach (var item in cb)
